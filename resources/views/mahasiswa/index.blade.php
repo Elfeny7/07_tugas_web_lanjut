@@ -10,6 +10,18 @@
         </div>
     </div>
 </div>
+<div class="row justify-content-between">
+    <div class="col-md-4">
+        <form action="{{ route('mahasiswa.index') }}" method="GET" role="search">
+            <div class="input-group mb-3">
+                <input type="text" name="search" class="form-control" placeholder="Cari berdasarkan Nama">
+                <span class="input-group-prepend">
+                    <button type="submit" class="btn btn-primary">Cari</button>
+                </span>
+            </div>
+        </form>
+    </div>
+</div>
 
 @if ($message = Session::get('success'))
 <div class="alert alert-success">

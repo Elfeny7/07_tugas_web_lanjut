@@ -12,9 +12,25 @@ class MahasiswaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+
+    // public function index()
+    // {
+    //     $mahasiswa = Mahasiswa::paginate(5);
+    //     $posts = Mahasiswa::orderBy('Nim', 'desc');
+    //     return view('mahasiswa.index', compact('mahasiswa'));
+    // }
+
+    public function index(Request $request)
     {
-        $mahasiswa = Mahasiswa::paginate(5);
+        $mahasiswa = Mahasiswa::where([
+            ['Nama', '!=', Null],
+            [function ($query) use ($request) {
+                if (($search = $request->search)) {
+                    $query->orWhere('Nama', 'LIKE', '%' . $search . '%')
+                    ->get();
+                }
+            }]
+        ])->paginate(5);
         $posts = Mahasiswa::orderBy('Nim', 'desc');
         return view('mahasiswa.index', compact('mahasiswa'));
     }
